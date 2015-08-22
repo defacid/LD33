@@ -16,6 +16,10 @@ a {
 	color: #aaf;
 }
 
+a.visited {
+	color: #555;
+}
+
 a:hover {
 	color: #88f;
 }
@@ -87,6 +91,7 @@ li.item {
 	margin: 4px 8px;
 	border: 1px solid #444;
 	border-radius: 4px;
+	cursor: pointer;
 }
 
 li.item:hover {
@@ -98,6 +103,11 @@ li.item:hover {
 
 li:last-of-type {
 	margin-bottom: 8px;
+}
+
+.poop {
+	font-size: 0.75em;
+	color: #444;
 }
 
 .footer {
