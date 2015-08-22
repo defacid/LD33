@@ -1,4 +1,4 @@
-<html>
+<html ng-app="gameWorld">
 	<head>
 		<title>LUDUM DARE 33</title>
 		<!--Stylesheets -->
@@ -17,21 +17,19 @@
 				<div class="left">LD33</div>
 				<div class="right">0.0.1</div>
 			</div>
-			<div class="content">
+			<div class="content" ng-controller="RoomController">
 				<div class="left sidebar">
 					<ul>
-						<li class="stat"><i class="fa fa-heart left"></i><div class="right">30/30</div></li>
+						<li class="stat danger"><i class="fa fa-heart left"></i><div class="right">2/30</div></li>
 						<li class="stat"><i class="fa fa-bed left"></i><div class="right">100</div></li>
-						<li class="stat"><i class="fa fa-cutlery left"></i><div class="right"> 27</div></li>
-						<li class="item">Go North</li>
-						<li class="item">Go East</li>
+						<li class="stat warning"><i class="fa fa-cutlery left"></i><div class="right"> 37</div></li>
 						<li class="item">Look Around</li>
 						<li class="item">Poop</li>
 					</ul>
 				</div>
 				<div class="eventWindow">
-					You find yourself alone in an open field.
-					<br /><br />To your north is a forest and to your east is a small <a href>farm</a>.
+					{{5 + 7}}
+					<br /><br />To your north is <a href>a forest</a> and to your east is <a href>a small farm</a>.
 				</div>
 			</div>
 			
@@ -43,7 +41,14 @@
 		
 		<script>
 		(function(){
+			$(".wrap").toggle();
+			$(".content > div").hide();
 			
+			$(".wrap").fadeIn(1000, function(){
+				$(".eventWindow").slideToggle(2000, function(){
+					$(".sidebar").delay(1000).slideDown(1000);
+				});
+			});
 		})();
 		</script>
 	</body>
