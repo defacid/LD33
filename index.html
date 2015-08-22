@@ -1,22 +1,50 @@
 <html>
 	<head>
 		<title>LUDUM DARE 33</title>
+		<!--Stylesheets -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="./css/bootstrap.min.css">
-		<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
-		
-		<!--My Stylesheet -->
-		
-		
-		<!-- Bootstrap JS -->
-		<script src="./js/bootstrap.min.js"></script>
+		<!-- Javascript Libaries and Angular App -->
+		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="angular.min.js"></script>
+		<script type="text/javascript" src="app.js"></script>
 	</head>
 	<body>
-		<div class="container">
+		<div class="wrap">
 			<div class="header">
-				Hello, world!
+				<div class="left">LD33</div>
+				<div class="right">0.0.1</div>
+			</div>
+			<div class="content">
+				<div class="left sidebar">
+					<ul>
+						<li class="stat"><i class="fa fa-heart left"></i><div class="right">30/30</div></li>
+						<li class="stat"><i class="fa fa-bed left"></i><div class="right">100</div></li>
+						<li class="stat"><i class="fa fa-cutlery left"></i><div class="right"> 27</div></li>
+						<li class="item">Go North</li>
+						<li class="item">Go East</li>
+						<li class="item">Look Around</li>
+						<li class="item">Poop</li>
+					</ul>
+				</div>
+				<div class="eventWindow">
+					You find yourself alone in an open field.
+					<br /><br />To your north is a forest and to your east is a small <a href>farm</a>.
+				</div>
+			</div>
+			
+			<div class="footer">
+				Made with <i class="fa fa-heart"></i> by <a href="http://defacid.com">Shaquille Stoutamire</a> 2015
+				<br />Made for <a href="http://ludumdare.com">Ludum Dare 33</a>
 			</div>
 		</div>
+		
+		<script>
+		(function(){
+			
+		})();
+		</script>
 	</body>
 </html>
