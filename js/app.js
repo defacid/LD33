@@ -2,22 +2,6 @@
 	var app = angular.module("gameWorld", []);
 	
 	app.controller("RoomController", ["$scope", function($scope){
-		$scope.room = {
-			event: 1,
-			type: 7,
-			poop: 0,
-			examined: 0,
-			directions: [
-				{canMove: 1, roomType: 1},
-				{canMove: 1, roomType: 6},
-				{canMove: 0, roomData: null},
-				{canMove: 0, roomData: null},
-			],
-			action: function(){
-				$scope.room.event = 0;
-			},
-		}
-		
 		//Direction definitions (0: North, 1: East, 2: West, 3: South)
 		$scope.compass = [
 			'north',
@@ -25,6 +9,9 @@
 			'south',
 			'west'
 		];
+		
+		//Numerical values for the compass
+		$scope.cNum = [-8, 1, 8, -1];
 		
 		//Set of room templates
 		$scope.roomSet = [
@@ -34,72 +21,137 @@
 				description: 'TEST',
 			}, {
 				type: 1,
-				name: 'a dark forest',
-				description: 'TEST',
+				name: 'the foyer',
+				description: 'You are standing in the foyer of a large mansion.',
 			}, {
 				type: 2,
-				name: 'a large castle',
-				description: 'TEST',
+				name: 'a hallway',
+				description: 'You are standing in a hallway.',
 			}, {
 				type: 3,
-				name: 'an empty room',
-				description: 'TEST',
+				name: 'a restroom',
+				description: 'You are standing in a restroom.',
 			}, {
 				type: 4,
-				name: 'another empty room',
-				description: 'TEST',
+				name: 'a bedroom',
+				description: 'You are standing in a bedroom. There is a bed here where you can rest.',
 			}, {
 				type: 5,
-				name: 'a dungeon',
-				description: 'TEST',
+				name: 'an empty room',
+				description: 'You are standing in an empty room.',
 			}, {
 				type: 6,
-				name: 'a small farm',
-				description: 'TEST',
+				name: 'a kitchen',
+				description: 'You are standing in a kitchen.',
 			}, {
 				type: 7,
-				name: 'an open field',
-				description: 'You are alone in an empty field.'
+				name: 'a dining room',
+				description: 'You are standing in a room with a large table where people eat.',
 			},
 			
 		];
 		
-		$scope.mapGrid = []
+		//16x16 grid
+		$scope.mapGrid = [
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  3,  2,  6,  0,  0,  0,
+			0,  0,  4,  2,  7,  0,  0,  0,
+			0,  2,  2,  2,  2,  2,  2,  3,
+			0,  2,  5,  2,  5,  4,  2,  0,
+			0,  2,  2,  1,  2,  2,  2,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,
+		];
+		
+		$scope.position = 51;
+		/*
+		1: Origin, 2: Hallway, 3: Restroom, 4: Bedroom,
+		5: Empty Room, 6: Kitchen, 7: Dining Room
+		-------- 
+		--------
+		--RHK---
+		--BHD---
+		-HHHHHHR
+		-HEHEBH-
+		-HHOHHH-
+		--------
+		*/
 		
 		//List of every defined room in the game
-		$scope.roomList = [
-			{
-				id: 0,
+		//Initialize all rooms
+		$scope.roomList = [];
+		
+		/*for (i = 0; i < 64; i++) {
+			
+			$scope.roomList.push({
 				event: 0,
-				type: 0,
+				type: $scope.mapGrid[i],
 				poop: 0,
 				examined: 0,
-				directions: [
-					{canMove: 0},
-					{canMove: 0},
-					{canMove: 0},
-					{canMove: 0},
-				],
+				directions: [0, 0, 0, 0],
 				action: function(){
 					alert("ERROR! ERROR! I NEED SCISSORS 61!");
 				},
-			}, {
-				id: 1,
-				event: 1,
-				type: 7,
-				poop: 0,
-				examined: 0,
-				directions: [
-					{canMove: 1, roomType: 1},
-					{canMove: 1, roomType: 6},
-					{canMove: 0, roomData: null},
-					{canMove: 0, roomData: null},
-				],
-				action: function(){
-					$scope.room.event = 0;
+			});
+			
+			if ($scope.mapGrid[i-8] > 0) $scope.roomList[i].directions[0] = {
+				1,
+				
+			};
+			if ($scope.mapGrid[i+1] > 0) $scope.roomList[i].directions[1] = 1;
+			if ($scope.mapGrid[i+8] > 0) $scope.roomList[i].directions[2] = 1;
+			if ($scope.mapGrid[i-1] > 0) $scope.roomList[i].directions[3] = 1;
+			
+		}
+		
+		//Set barriers and actions
+		$scope.roomList[59].directions = [1, 1, 0, 0],
+		$scope.roomList[59].action = function(){
+			$scope.room.event = 0;
+		};
+		*/
+		
+		//Debug code
+		$scope.roomList[51] = {
+			event: 1,
+			type: $scope.mapGrid[51],
+			poop: 0,
+			examined: 0,
+			directions: [
+				{
+					canMove: 1,
+					name: $scope.roomSet[$scope.mapGrid[51 + $scope.cNum[0]]].name,
+				}, {
+					canMove: 1,
+					name: $scope.roomSet[$scope.mapGrid[51 + $scope.cNum[1]]].name,
+				}, {
+					canMove: 0,
+					name: "NULL",
+				}, {
+					canMove: 0,
+					name: "NULL",
 				},
-			}, 
-		];
+			],
+			action: function(){
+				alert("ERROR! ERROR! I NEED SCISSORS 61!");
+			},
+		}
+		
+		$scope.room = $scope.roomList[$scope.position];
+		
+		$scope.move = function(number){
+			//Carry out the pre-room moving actions
+			$scope.room.action();
+			
+			//Save the state of the room to the list
+			$scope.roomList[$scope.position] = $scope.room;
+			
+			//Set the new position
+			$scope.position += number;
+			
+			//Move to the new position
+			$scope.room = $scope.roomList[$scope.position];
+		};
 		
 		//List of every text event that will happen in the game
 		$scope.eventList = [

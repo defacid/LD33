@@ -35,10 +35,15 @@
 					<div ng-show="room.examined">
 						<br />
 						<div ng-repeat="dir in room.directions">
-							<span ng-show="dir.canMove">To the {{compass[$index]}} is <a href>{{roomSet[dir.roomType].name}}</a></span>
+							<span ng-show="dir.canMove">To the {{compass[$index]}} is <a href ng-click="move(cNum[$index])">{{dir.name}}</a></span>
 						</div>
 					</div>
 				</div>
+				<em style="width: 100%; clear: both; text-align: center">
+					DEBUG
+					<br />{{room}}
+					<br />{{position}}
+				</em>
 			</div>
 			
 			<div class="footer">
