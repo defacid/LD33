@@ -9,7 +9,7 @@
 			hunger: 35,
 			inventory: [
 				{}
-			];
+			],
 		}
 		
 		$scope.triggers = {
