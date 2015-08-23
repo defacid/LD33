@@ -29,6 +29,14 @@ a:hover {
 	margin: auto;
 }
 
+.header {
+	padding-bottom: 4px;
+}
+
+.header a {
+	text-decoration: none;
+}
+
 .left {
 	float: left;
 	text-align: left;

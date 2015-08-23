@@ -7,6 +7,15 @@
 			health: 1,
 			rest: 100,
 			hunger: 35,
+			inventory: [
+				{}
+			];
+		}
+		
+		$scope.triggers = {
+			showHealth: 0,
+			showRest: 0,
+			showHunger: 0,
 		}
 		
 		//Direction definitions (0: North, 1: East, 2: West, 3: South)
@@ -208,14 +217,14 @@
 		
 		//Execute room action code and move from room to room 
 		$scope.move = function(number){
-			//Carry out the pre-room moving actions
-			$scope.room.action();
-			
 			//Save the state of the room to the list
 			$scope.roomList[$scope.position] = $scope.room;
 			
 			//Set the new position
 			$scope.position += number;
+			
+			//Carry out the pre-room moving actions
+			$scope.room.action();
 			
 			//Move to the new position
 			$scope.room = $scope.roomList[$scope.position];
@@ -229,6 +238,9 @@
 			},{
 				id: 1,
 				description: 'You find yourself awaking to sharp pain covering your whole body. You struggle for breath and ache from the bruses on your upperbody and lacerations on your thighs and calves. Beaten and starved, your top priorities are tending to your wounds and empty stomach.',
+			}, {
+				id: 2,
+				description: 'The path is blocked by debris. You cannot go that way.',
 			},
 			
 		];
