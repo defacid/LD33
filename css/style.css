@@ -127,16 +127,20 @@ li:last-of-type {
 	color: #88f;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 768px) {
 	.sidebar {
 		width: 100%;
 		min-width: none;
-		font-size: 1.25em;
+		font-size: 1.5em;
 	}
 	
 	.eventWindow {
 		width: 100%;
 		min-width: none;
 		margin-top: 8px;
+	}
+	
+	.poop {
+		font-size: 0.9em;
 	}
 }
