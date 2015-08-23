@@ -137,9 +137,11 @@ li:last-of-type {
 
 @media screen and (max-width: 768px) {
 	.sidebar {
+		margin-top: 8px;
 		width: 100%;
 		min-width: none;
 		font-size: 1.5em;
+		clear:both;
 	}
 	
 	.eventWindow {

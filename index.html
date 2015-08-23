@@ -1,6 +1,9 @@
 <html ng-app="gameWorld">
 	<head>
 		<title>LUDUM DARE 33</title>
+		<!-- META JUNK -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 		<!--Stylesheets -->
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -18,15 +21,6 @@
 				<div class="right">Made for <a href="http://ludumdare.com">Ludum Dare 33</a></div>
 			</div>
 			<div class="content" ng-app="gameWorld" ng-controller="RoomController">
-				<div class="left sidebar">
-					<ul>
-						<li ng-show="triggers.showHealth" class="stat danger"><i class="fa fa-heart left"></i><div class="right">{{stats.health}}/{{stats.maxHealth}}</div></li>
-						<li ng-show="triggers.showRest" class="stat"><i class="fa fa-bed left"></i><div class="right">{{stats.rest}}</div></li>
-						<li ng-show="triggers.showHunger" class="stat warning"><i class="fa fa-cutlery left"></i><div class="right"> {{stats.hunger}}</div></li>
-						<li class="item" ng-click="room.examined = 1">Look Around</li>
-						<li class="item" ng-click="room.poop = 1">Poop</li>
-					</ul>
-				</div>
 				<div class="eventWindow">
 					<span ng-show="room.event">{{eventList[room.event].description}}<br /><br /></span>
 					<span>{{roomSet[room.type].description}}</span>
@@ -37,6 +31,21 @@
 							<span ng-show="dir.canMove">To the {{compass[$index]}} is <a href ng-click="move(cNum[$index])">{{dir.name}}</a></span>
 						</div>
 					</div>
+				</div>
+				<div class="left sidebar">
+					<ul>
+						<li ng-show="triggers.showHealth" class="stat danger">
+							<i class="fa fa-heart left"></i><div class="right">{{stats.health}}/{{stats.maxHealth}}</div>
+						</li>
+						<li ng-show="triggers.showRest" class="stat">
+							<i class="fa fa-bed left"></i><div class="right">{{stats.rest}}</div>
+						</li>
+						<li ng-show="triggers.showHunger" class="stat warning">
+							<i class="fa fa-cutlery left"></i><div class="right"> {{stats.hunger}}</div>
+						</li>
+						<li class="item" ng-hide="room.examined" ng-click="room.examined = 1">Look Around</li>
+						<li class="item" ng-hide="room.poop" ng-click="room.poop = 1">Poop</li>
+					</ul>
 				</div>
 				<!-- <div style="width: 100%; clear: both; text-align: center; padding: 2em; color: #333;">
 					DEBUG
