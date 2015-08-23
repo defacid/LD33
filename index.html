@@ -2,7 +2,6 @@
 	<head>
 		<title>LUDUM DARE 33</title>
 		<!--Stylesheets -->
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		
@@ -21,9 +20,9 @@
 			<div class="content" ng-app="gameWorld" ng-controller="RoomController">
 				<div class="left sidebar">
 					<ul>
-						<li class="stat danger"><i class="fa fa-heart left"></i><div class="right">2/30</div></li>
-						<li class="stat"><i class="fa fa-bed left"></i><div class="right">100</div></li>
-						<li class="stat warning"><i class="fa fa-cutlery left"></i><div class="right"> 37</div></li>
+						<li class="stat danger"><i class="fa fa-heart left"></i><div class="right">{{stats.health}}/{{stats.maxHealth}}</div></li>
+						<li class="stat"><i class="fa fa-bed left"></i><div class="right">{{stats.rest}}</div></li>
+						<li class="stat warning"><i class="fa fa-cutlery left"></i><div class="right"> {{stats.hunger}}</div></li>
 						<li class="item" ng-click="room.examined = 1">Look Around</li>
 						<li class="item" ng-click="room.poop = 1">Poop</li>
 					</ul>
@@ -39,11 +38,11 @@
 						</div>
 					</div>
 				</div>
-				<em style="width: 100%; clear: both; text-align: center">
+				<!-- <div style="width: 100%; clear: both; text-align: center; padding: 2em; color: #333;">
 					DEBUG
 					<br />{{room}}
 					<br />{{position}}
-				</em>
+				</div> -->
 			</div>
 			
 			<div class="footer">
@@ -55,7 +54,8 @@
 		<script>
 		(function(){
 			$(".wrap").hide();
-			$(".content > div").hide();
+			$(".eventWindow").hide();
+			$(".sidebar").hide();
 			
 			$(".wrap").fadeIn(2000, function(){
 				$(".eventWindow").slideDown(2000);
