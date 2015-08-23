@@ -22,6 +22,7 @@
 			</div>
 			<div class="content" ng-app="gameWorld" ng-controller="RoomController">
 				<div class="eventWindow">
+					<div class="action"></div>
 					<span ng-show="room.event">{{eventList[room.event].description}}<br /><br /></span>
 					<span>{{roomSet[room.type].description}}</span>
 					<span class="poop" ng-show="room.poop"><br />Your poop is on the ground here.</span>
@@ -43,9 +44,11 @@
 						<li ng-show="triggers.showHunger" class="stat" ng-class="{'warning' : stats.hunger <= 40, 'danger' : stats.hunger <= 20}">
 							<i class="fa fa-cutlery left"></i><div class="right">{{stats.hunger}}</div>
 						</li>
-						<li class="item" ng-hide="room.examined" ng-click="room.examined = 1">Look Around</li>
+						<li class="item" ng-hide="room.examined" ng-click="look()">Look Around</li>
 						<li class="item" ng-show="room.heal > 0 && room.examined" ng-click="heal(room.heal)">Heal</li>
-						<li class="item" ng-hide="room.poop" ng-click="room.poop = 1">Poop</li>
+						<li class="item" ng-show="room.food > 0 && room.examined" ng-click="eat(room.food)">Eat</li>
+						<li class="item" ng-show="room.comfort > 0 && stats.rest < 100 && room.examined" ng-click="rest(room.comfort)">Rest</li>
+						<li class="item" ng-hide="room.poop" ng-click="poop()">Poop</li>
 					</ul>
 				</div>
 				<!-- <div style="width: 100%; clear: both; text-align: center; padding: 2em; color: #333;">
@@ -57,6 +60,7 @@
 			
 			<div class="footer">
 				Made with <i class="fa fa-heart"></i> by <a href="http://defacid.com">Shaquille Stoutamire</a> 2015
+				<br /><a href="http://github.com/defacid/LD33"><i class="fa fa-github"></i> Make your own Text-Adventure</a>
 			</div>
 		</div>
 		

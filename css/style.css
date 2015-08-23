@@ -14,6 +14,7 @@ ul {
 a {
 	transition: all 0.25s;
 	color: #aaf;
+	text-decoration: none;
 }
 
 a.visited {
@@ -42,24 +43,31 @@ a:hover {
 	text-align: left;
 }
 
-i.left {
-	padding-top: 2px;
-}
-
 .right {
 	text-align: right;
-}
-
-.sidebar {
-	border-radius: 4px;
-	width: 25%;
-	min-width: 128px;
 }
 
 .eventWindow {
 	float: right;
 	width: 74%;
 	font-size: 1.5em;
+}
+
+.action {
+	padding: 4px 0;
+	width: 100%;
+	font-size: 0.75em;
+}
+
+.poop {
+	font-size: 0.75em;
+	color: #444;
+}
+
+.sidebar {
+	border-radius: 4px;
+	width: 25%;
+	min-width: 128px;
 }
 
 li.title {
@@ -80,8 +88,15 @@ li.stat {
 }
 
 li.stat:hover {
-	background-color: #aaa;
-	color: #222;
+	background-color: #333;
+}
+
+i.left {
+	padding-top: 1px;
+}
+
+.good {
+	color: #afa;
 }
 
 .warning {
@@ -110,11 +125,6 @@ li.item:hover {
 
 li:last-of-type {
 	margin-bottom: 8px;
-}
-
-.poop {
-	font-size: 0.75em;
-	color: #444;
 }
 
 .footer {

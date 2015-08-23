@@ -5,15 +5,15 @@
 		$scope.stats = {
 			maxHealth: 10,
 			health: 1,
-			rest: 100,
-			hunger: 35,
+			rest: 50,
+			hunger: 20,
 			inventory: [],
 		}
 		
 		$scope.triggers = {
 			showHealth: 1,
-			showRest: 0,
-			showHunger: 0,
+			showRest: 1,
+			showHunger: 1,
 		}
 		
 		//Direction definitions (0: North, 1: East, 2: West, 3: South)
@@ -134,7 +134,7 @@
 				examined: 0,
 				heal: 0, //Int
 				food: 0, //Int
-				canRest: 0, //Bool
+				comfort: 0, //Bool
 				directions: [
 					{
 						canMove: 0,
@@ -210,6 +210,7 @@
 		//Room Event/Action List 
 		$scope.roomList[51].event = 1;
 		$scope.roomList[51].heal = 3;
+		$scope.roomList[51].comfort = 50;
 		$scope.roomList[51].action = function(){
 			$scope.roomList[51].event = 0;
 		};
@@ -218,26 +219,71 @@
 		$scope.room = $scope.roomList[$scope.position];
 
 		//ACTIONS
+		
+		//Look - Look at your surroundings
+		$scope.look = function(){
+			$scope.room.examined = 1;
+			
+			$(".action").html('<div class="right">You examined your surroundings.</div>');
+		};
+		
+		//Poop - I know it's childish, but it gets the Point of Object Perminance across... Sorry, couldn't help myself
+		$scope.poop = function(){
+			$scope.room.poop = 1;
+			
+			$(".action").html('<div class="right">You decided to poop on the ground.</div>');
+		};
 
 		//Heal - Heal yourself and remove the healing properties of the room
-		$scope.heal = function(number){
-			$scope.stats.health += number;
+		$scope.heal = function($number){
+			$scope.stats.health += $number;
 
 			if ($scope.stats.health > $scope.stats.maxHealth) $scope.stats.health = $scope.stats.maxHealth; 
+			
+			$(".action").html('<div class="good left"><i class="fa fa-heart"></i> +' + $number +'</div><div class="good right">You attended to your wounds.</div>');
+			
+			$scope.room.heal -= $number;
+		}
+		
+		//Eat - Eat food and remove the food source from the room
+		$scope.eat = function($number){
+			$scope.stats.hunger += $number;
 
-			$scope.room.heal -= number;
+			if ($scope.stats.hunger > 100) $scope.stats.hunger = 100; 
+			
+			$(".action").html('<div class="good left"><i class="fa fa-cutlery"></i> +' + $number +'</div><div class="good right">You satisfied your hunger.</div>');
+
+			$scope.room.food -= $number;
+		}
+		
+		//Rest - Use the room to an amount of rest relative to the comfort level - time passes, so you will be hungier when you are done resting
+		$scope.rest = function($number){
+			$scope.stats.rest += $number;
+			$scope.stats.health += 2;
+			$scope.stats.hunger -= 10;
+			
+			if ($scope.stats.rest > 100) $scope.stats.rest = 100; 
+			
+			$(".action").html('<div class="left"><span class="good"><i class="fa fa-bed"></i> +' + $number +' <i class="fa fa-heart"></i> +2</span> <span class="danger"><i class="fa fa-cutlery"></i> -10</span></div><div class="good right">You allowed yourself to rest.</div>');
 		}
 		
 		//Move - Execute room action code and move from room to room 
-		$scope.move = function(number){
+		$scope.move = function($number){
 			//Save the state of the room to the list
 			$scope.roomList[$scope.position] = $scope.room;
 			
 			//Set the new position
-			$scope.position += number;
+			$scope.position += $number;
 			
-			//Carry out the pre-room moving actions
+			//Carry out the specific pre-room moving actions
 			$scope.room.action();
+			
+			//Make tired and be haaangry
+			$scope.stats.hunger -= 1;
+			$scope.stats.rest -= 1;
+			
+			//Clear the action text
+			$('.action').html('<div class="danger left"><i class="fa fa-bed"></i> -1 <i class="fa fa-heart"></i> -1</div><div class="right">You moved to the next area.</div><br />');
 			
 			//Move to the new position
 			$scope.room = $scope.roomList[$scope.position];
