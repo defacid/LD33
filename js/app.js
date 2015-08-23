@@ -7,13 +7,11 @@
 			health: 1,
 			rest: 100,
 			hunger: 35,
-			inventory: [
-				{}
-			],
+			inventory: [],
 		}
 		
 		$scope.triggers = {
-			showHealth: 0,
+			showHealth: 1,
 			showRest: 0,
 			showHunger: 0,
 		}
@@ -134,6 +132,9 @@
 				type: $scope.mapGrid[i],
 				poop: 0,
 				examined: 0,
+				heal: 0, //Int
+				food: 0, //Int
+				canRest: 0, //Bool
 				directions: [
 					{
 						canMove: 0,
@@ -208,14 +209,26 @@
 		
 		//Room Event/Action List 
 		$scope.roomList[51].event = 1;
+		$scope.roomList[51].heal = 3;
 		$scope.roomList[51].action = function(){
 			$scope.roomList[51].event = 0;
 		};
 		
 		//Set the game room to the initial position
 		$scope.room = $scope.roomList[$scope.position];
+
+		//ACTIONS
+
+		//Heal - Heal yourself and remove the healing properties of the room
+		$scope.heal = function(number){
+			$scope.stats.health += number;
+
+			if ($scope.stats.health > $scope.stats.maxHealth) $scope.stats.health = $scope.stats.maxHealth; 
+
+			$scope.room.heal -= number;
+		}
 		
-		//Execute room action code and move from room to room 
+		//Move - Execute room action code and move from room to room 
 		$scope.move = function(number){
 			//Save the state of the room to the list
 			$scope.roomList[$scope.position] = $scope.room;

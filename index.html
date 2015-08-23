@@ -34,16 +34,17 @@
 				</div>
 				<div class="left sidebar">
 					<ul>
-						<li ng-show="triggers.showHealth" class="stat danger">
+						<li ng-show="triggers.showHealth" class="stat" ng-class="{'warning' : stats.health <= stats.maxHealth * .4, 'danger' : stats.health <= stats.maxHealth * .2}">
 							<i class="fa fa-heart left"></i><div class="right">{{stats.health}}/{{stats.maxHealth}}</div>
 						</li>
-						<li ng-show="triggers.showRest" class="stat">
+						<li ng-show="triggers.showRest" class="stat" ng-class="{'warning' : stats.rest <= 40, 'danger' : stats.rest <= 20}">
 							<i class="fa fa-bed left"></i><div class="right">{{stats.rest}}</div>
 						</li>
-						<li ng-show="triggers.showHunger" class="stat warning">
+						<li ng-show="triggers.showHunger" class="stat" ng-class="{'warning' : stats.hunger <= 40, 'danger' : stats.hunger <= 20}">
 							<i class="fa fa-cutlery left"></i><div class="right">{{stats.hunger}}</div>
 						</li>
 						<li class="item" ng-hide="room.examined" ng-click="room.examined = 1">Look Around</li>
+						<li class="item" ng-show="room.heal > 0 && room.examined" ng-click="heal(room.heal)">Heal</li>
 						<li class="item" ng-hide="room.poop" ng-click="room.poop = 1">Poop</li>
 					</ul>
 				</div>
