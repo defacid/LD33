@@ -12,6 +12,7 @@
 			inventory: [],
 		}
 
+		$scope.gameEnd = 0;
 		$scope.poopCount = 0;
 		$scope.steps = 0;
 		$scope.timeline = 1;
@@ -82,7 +83,7 @@
 				type: 4,
 				name: 'a bedroom',
 				description: 'You are standing in a bedroom. There is a bed here where you can rest.',
-				heal: 1,
+				heal: 0,
 				food: 0,
 				comfort: 50,
 				indepth: 'There is nothing else to see.',
@@ -277,6 +278,7 @@
 		
 		//Set the game room to the initial position
 		$scope.room = $scope.roomList[$scope.position];
+		$scope.room.eventCall = 1;
 
 		//ACTIONS
 		
@@ -323,6 +325,8 @@
 			$scope.stats.rest += $number;
 			$scope.stats.health += 2;
 			$scope.stats.hunger -= 10;
+
+			if ($scope.stats.hunger <= 0) $scope.gameEnd = 1;
 			
 			if ($scope.stats.rest > 100) $scope.stats.rest = 100; 
 			
@@ -362,11 +366,18 @@
 				//Set the events
 				for(i=1; i<7; i++) {
 					if ($scope.poopCount > i && $scope.steps > i*2 && $scope.timeline < i+1) {
-						$scope.timeline += 1;
-						$scope.roomList[$scope.position].eventCall = i+1;
+						if (timeline < 7) {
+							$scope.timeline += 1;
+							$scope.roomList[$scope.position].eventCall = i+1;
+						} else {
+							$scope.gameEnd = 3;
+						}
 					};
 				};
 			};
+
+			if ($scope.stats.hunger <= 0) $scope.gameEnd = 1;
+			if ($scope.stats.rest <= 0) $scope.gameEnd = 2;
 		};
 		
 		//List of every text event that will happen in the game
@@ -376,7 +387,7 @@
 				description: '',
 			}, {
 				id: 1,
-				description: 'You find yourself awaking to sharp pain covering your whole body. You struggle for breath and ache from the bruses on your upperbody and lacerations on your thighs and calves. Beaten and starved, your top priorities are tending to your wounds and empty stomach.',
+				description: 'You find yourself awaking to your stomach both empty and in knots. There are bruises coving your body, and you can not recall why you are so hurt and hungry. Your top priorities are tending to your wounds and empty stomach.',
 			}, {
 				id: 2,
 				description: 'You hear a door open and close somewhere in the house.',
@@ -393,7 +404,6 @@
 				id: 6,
 				description: 'You hear what sounds like a man and woman frantically yelling at each other. You believe you might also hear sobbing.',
 			},
-			
 		];
 	}]);
 

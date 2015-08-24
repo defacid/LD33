@@ -22,16 +22,22 @@
 			</div>
 			<div class="content" ng-app="gameWorld" ng-controller="RoomController">
 				<div class="eventWindow">
-					<div class="action"></div>
-					<span ng-show="room.eventCall">{{eventList[room.eventCall].description}}<br /><br /></span>
-					<span>{{roomSet[room.type].description}}</span>
-					<span class="poop" ng-show="room.poop"><br />Your poop is on the ground here.</span>
-					<div ng-show="room.examined">
-						<br />{{room.indepth}}<br />
-						<div ng-repeat="dir in room.directions">
-							<span ng-show="dir.canMove">To the {{compass[$index]}} is <a href ng-click="move(cNum[$index])">{{dir.name}}</a></span>
+					<div class="game" ng-hide="gameEnd">
+						<div class="action"></div>
+						<span ng-show="room.eventCall">{{eventList[room.eventCall].description}}<br /><br /></span>
+						<span>{{roomSet[room.type].description}}</span>
+						<span class="poop" ng-show="room.poop"><br />Your poop is on the ground here.</span>
+						<div ng-show="room.examined">
+							<br />{{room.indepth}}<br />
+							<div ng-repeat="dir in room.directions">
+								<span ng-show="dir.canMove">To the {{compass[$index]}} is <a href ng-click="move(cNum[$index])">{{dir.name}}</a></span>
+							</div>
 						</div>
 					</div>
+					<div ng-show="gameEnd == 1">You starved to death... or at least felt like you did. But really, you're just overreacting. You should be more worried about the mess you left for your owners.<br /><a>Retry?</a></div>
+					<div ng-show="gameEnd == 2">You SOMEHOW managed to get so exhausted that you passed out. Your owners found you and will be taking you to the vet for the plethora of reasons I could list.<br /><a>Retry?</a></div>
+					<div ng-show="gameEnd == 3">"WHERE IS THAT DOG AT!?" you hear, accepting your fate...
+					</br></br>As elusive as you were, you were found! Now your owners are taking you to the vet because something has to be seriously wrong if you're pooping all over the house.<br /><a>Retry?</a></div>
 				</div>
 				<div class="left sidebar">
 					<ul>
@@ -51,13 +57,13 @@
 						<li class="item" ng-hide="room.poop" ng-click="poop()">Poop</li>
 					</ul>
 				</div>
-				<div style="width: 100%; clear: both; text-align: center; padding: 2em; color: #333;">
+				<!-- <div style="width: 100%; clear: both; text-align: center; padding: 2em; color: #333;">
 					DEBUG
 					<br />Poop Count: {{poopCount}}
 					<br />Position in House: {{position%8}}, {{position/8 | number:0}}
 					<br />Steps: {{steps}}
 					<br />Timeline: {{timeline}}
-				</div>
+				</div> -->
 			</div>
 			
 			<div class="footer">
