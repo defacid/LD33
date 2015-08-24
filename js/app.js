@@ -366,7 +366,7 @@
 				//Set the events
 				for(i=1; i<7; i++) {
 					if ($scope.poopCount > i && $scope.steps > i*2 && $scope.timeline < i+1) {
-						if (timeline < 7) {
+						if ($scope.timeline < 7) {
 							$scope.timeline += 1;
 							$scope.roomList[$scope.position].eventCall = i+1;
 						} else {
