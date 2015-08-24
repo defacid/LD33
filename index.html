@@ -23,11 +23,11 @@
 			<div class="content" ng-app="gameWorld" ng-controller="RoomController">
 				<div class="eventWindow">
 					<div class="action"></div>
-					<span ng-show="room.event">{{eventList[room.event].description}}<br /><br /></span>
+					<span ng-show="room.eventCall">{{eventList[room.eventCall].description}}<br /><br /></span>
 					<span>{{roomSet[room.type].description}}</span>
 					<span class="poop" ng-show="room.poop"><br />Your poop is on the ground here.</span>
 					<div ng-show="room.examined">
-						<br />
+						<br />{{room.indepth}}<br />
 						<div ng-repeat="dir in room.directions">
 							<span ng-show="dir.canMove">To the {{compass[$index]}} is <a href ng-click="move(cNum[$index])">{{dir.name}}</a></span>
 						</div>
@@ -51,11 +51,13 @@
 						<li class="item" ng-hide="room.poop" ng-click="poop()">Poop</li>
 					</ul>
 				</div>
-				<!-- <div style="width: 100%; clear: both; text-align: center; padding: 2em; color: #333;">
+				<div style="width: 100%; clear: both; text-align: center; padding: 2em; color: #333;">
 					DEBUG
-					<br />{{room}}
-					<br />{{position}}
-				</div> -->
+					<br />Poop Count: {{poopCount}}
+					<br />Position in House: {{position%8}}, {{position/8 | number:0}}
+					<br />Steps: {{steps}}
+					<br />Timeline: {{timeline}}
+				</div>
 			</div>
 			
 			<div class="footer">
