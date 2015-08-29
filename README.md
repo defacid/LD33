@@ -1,4 +1,4 @@
-# LD33
+# Corner
 **Angular.js + jQuery Text Adventure Framework**
 
 *Within a day, this text-adventure framework was born!*
