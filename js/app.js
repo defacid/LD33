@@ -304,7 +304,7 @@
 
 			if ($scope.stats.health > $scope.stats.maxHealth) $scope.stats.health = $scope.stats.maxHealth; 
 			
-			$(".action").html('<div class="good left"><i class="fa fa-heart"></i> +' + $number +'</div><div class="good right">You attended to your wounds.</div>');
+			$(".action").html('<div class="good left"><i class="fa fa-heart"></i> +' + $number +'</div><div class="good right">You tended to your wounds.</div>');
 			
 			$scope.room.heal -= $number;
 		}
@@ -324,7 +324,9 @@
 		$scope.rest = function($number){
 			$scope.stats.rest += $number;
 			$scope.stats.health += 2;
-			$scope.stats.hunger -= 10;
+			$scope.stats.hunger -= 5;
+
+            if ($scope.stats.health > $scope.stats.maxHealth) $scope.stats.health = $scope.stats.maxHealth;
 
 			if ($scope.stats.hunger <= 0) $scope.gameEnd = 1;
 			
